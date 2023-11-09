@@ -40,10 +40,28 @@ async def get_text_message(msg: types.Message):
     return
 
 
-async def main():
+async def bot_start():
     bot = Bot(TOKEN)
+    print("Бот запущен")
     await dp.start_polling(bot)
 
+
+# WebSocket
+import asyncio
+import websockets
+
+async def connect_to_server():
+    uri = "wss://socketsbay.com/wss/v2/1/0aecfa6db87c0600e0bc7182c1a56c63/"  # Замените на ваш адрес WebSocket сервера
+
+    async with websockets.connect(uri) as websocket:
+        while True:
+            response = await websocket.recv()
+            print(f"Получено от сервера: {response}")
+
+async def main():
+    await asyncio.gather(bot_start(), connect_to_server())
+
+asyncio.run(main())
 
 if __name__ == '__main__':
     asyncio.run(main())
