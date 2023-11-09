@@ -8,7 +8,7 @@ from aiogram.filters import CommandStart
 import asyncio
 import websockets
 
-from config import TOKEN, mainUserId
+from config import TOKEN, mainUserId, uri
 from user import User
 from users import UsersList
 
@@ -53,8 +53,6 @@ async def bot_start():
 
 
 async def connect_to_server():
-    uri = "wss://socketsbay.com/wss/v2/1/0aecfa6db87c0600e0bc7182c1a56c63/"  # Замените на ваш адрес WebSocket сервера
-
     async with websockets.connect(uri) as websocket:
         while True:
             response = await websocket.recv()
