@@ -5,6 +5,9 @@ from aiogram.enums import ParseMode
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 
+import asyncio
+import websockets
+
 from config import TOKEN, mainUserId
 from user import User
 from users import UsersList
@@ -47,8 +50,7 @@ async def bot_start():
 
 
 # WebSocket
-import asyncio
-import websockets
+
 
 async def connect_to_server():
     uri = "wss://socketsbay.com/wss/v2/1/0aecfa6db87c0600e0bc7182c1a56c63/"  # Замените на ваш адрес WebSocket сервера
@@ -57,6 +59,8 @@ async def connect_to_server():
         while True:
             response = await websocket.recv()
             print(f"Получено от сервера: {response}")
+            await bot.send_message(mainUserId, "WebSocket: " + response)
+
 
 async def main():
     await asyncio.gather(bot_start(), connect_to_server())
