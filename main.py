@@ -17,7 +17,7 @@ usersList = UsersList()
 
 @dp.message(CommandStart())
 async def process_start_command(message: Message):
-    await bot.send_message(message.from_user.id, "Привет.\n\nЯ — тестовый бот.\n\nУ меня не так много вычислительных мощностей, поэтому иногда я отвечаю не сразу.")
+    await bot.send_message(message.from_user.id, "Привет.\n\nЯ — тестовый ИИ.\n\nУ меня не так много вычислительных мощностей, поэтому иногда я отвечаю не сразу.")
 
 
 @dp.message()
