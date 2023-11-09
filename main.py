@@ -22,20 +22,21 @@ async def process_start_command(message: Message):
 
 @dp.message()
 async def get_text_message(msg: types.Message):
-    if msg.from_user.id == mainUserId:
-        text = msg.text
-        id = text.split(":\n")[0]
-        if usersList.getUserById(int(id)) is not None:
-            await bot.send_message(id, text.split(":\n")[1])
+    try:
+        if msg.from_user.id == mainUserId:
+            text = msg.text
+            id = text.split(":\n")[0]
+            if usersList.getUserById(int(id)) is not None:
+                await bot.send_message(id, text.split(":\n")[1])
+            else:
+                await bot.send_message(mainUserId, f"Нет пользователя с ID: {id}")
         else:
-            await bot.send_message(mainUserId, f"Нет пользователя с ID: {id}")
-    else:
-        if usersList.getUserById(msg.from_user.id) is None:
-            usersList.addUser(User(msg.from_user.id, msg.from_user.first_name, msg.from_user.last_name))
-        link = f'<a href="tg://user?id={msg.from_user.id}">{msg.from_user.first_name} {msg.from_user.last_name}</a>'
-        await bot.send_message(mainUserId, f"<code>{msg.from_user.id}</code>\n{link}:\n\n{msg.text}", parse_mode=ParseMode.HTML)
-
-    #     <a href="tg://user?id=' + str(user.user_id) + '">' + user.name + ''
+            if usersList.getUserById(msg.from_user.id) is None:
+                usersList.addUser(User(msg.from_user.id, msg.from_user.first_name, msg.from_user.last_name))
+            link = f'<a href="tg://user?id={msg.from_user.id}">{msg.from_user.first_name} {msg.from_user.last_name}</a>'
+            await bot.send_message(mainUserId, f"<code>{msg.from_user.id}</code>\n{link}:\n\n{msg.text}", parse_mode=ParseMode.HTML)
+    except Exception as ex:
+        await bot.send_message(mainUserId, "🟥 [WARNING]: " + str(ex))
     return
 
 
