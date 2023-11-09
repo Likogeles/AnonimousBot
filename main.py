@@ -28,7 +28,6 @@ async def get_text_message(msg: types.Message):
         if usersList.getUserById(int(id)) is not None:
             await bot.send_message(id, text.split(":\n")[1])
         else:
-            print(usersList)
             await bot.send_message(mainUserId, f"Нет пользователя с ID: {id}")
     else:
         if usersList.getUserById(msg.from_user.id) is None:
