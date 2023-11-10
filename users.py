@@ -36,6 +36,9 @@ class UsersList:
                 return i
         return None
 
+    def getUsers(self) -> list[User]:
+        return self._usersList
+
     def __str__(self):
         usersStr = ""
         for i in self._usersList:
