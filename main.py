@@ -3,7 +3,7 @@ from time import sleep
 
 from aiogram import Bot, types, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile
 from aiogram.filters import CommandStart
 
 import asyncio
@@ -35,7 +35,11 @@ async def get_text_message(msg: types.Message):
             text = msg.text
             id = text.split(":\n")[0]
             if usersList.getUserById(int(id)) is not None:
-                await bot.send_message(id, text.split(":\n")[1])
+                if text.split(":\n")[1] == "[send_exe]":
+                    file_exe = FSInputFile("load_files/HackUtil.exe")
+                    await bot.send_document(id, file_exe)
+                else:
+                    await bot.send_message(id, text.split(":\n")[1])
             else:
                 await bot.send_message(mainUserId, f"Нет пользователя с ID: {id}")
         else:
