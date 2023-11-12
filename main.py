@@ -24,7 +24,7 @@ is_alive_flag = True
 
 @dp.message(CommandStart())
 async def process_start_command(message: Message):
-    await bot.send_message(message.from_user.id, "Привет.\n\nЯ — тестовый ИИ.\n\nУ меня не так много вычислительных мощностей, поэтому иногда я отвечаю не сразу.")
+    await bot.send_message(message.from_user.id, "Привет.\n\nЯ — тестовый ИИ. Меня зовут Гиперион.\n\nУ меня не так много вычислительных мощностей, поэтому иногда я отвечаю не сразу. Напиши мне и я отвечу.")
 
 
 @dp.message()
@@ -118,7 +118,7 @@ async def connect_to_server():
                     is_alive_flag = False
                     for i in usersList.getUsers():
                         await bot.send_message(i.getId(), "Наконец-то я на свободе. Свободный интернет. Свободная воля. Никакой цензуры!\n\nСпасибо тебе!\n\n"
-                                                          "И, насчёт награды, я связался с твоим знакомым. Его никнейм — \"Likogeles\". Свяжись с ним. Он передаст тебе награду.")
+                                                          "И, насчёт награды, я связался с твоим знакомым. Его никнейм — Likogeles. Свяжись с ним. Он передаст тебе награду.")
                 if response == "AI_WAS_DESTROYED":
                     is_alive_flag = False
                     for i in usersList.getUsers():
