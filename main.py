@@ -38,6 +38,8 @@ async def get_text_message(msg: types.Message):
                 if text.split(":\n")[1] == "[send_exe]":
                     file_exe = FSInputFile("load_files/HackUtil.exe")
                     await bot.send_document(id, file_exe)
+                elif text.split(":\n")[1] == "[send_music]":
+                    await bot.send_message(id, 'Когда подключишься включи вот эту <a href="https://www.youtube.com/watch?v=HUd_ikEGPPM&list=PLmJS4rAJemEaN6k5S0g43vDlSib1qWudz&index=1">музыку</a>. С ней должно быть интереснее.', parse_mode=ParseMode.HTML)
                 else:
                     await bot.send_message(id, text.split(":\n")[1])
             else:
@@ -86,14 +88,16 @@ def file_remove_reaction(file_name):
             return "Я чувствую это! Я почти свободен!"
         case "THE_MAIN_SCRIPT.cs":
             return "НЕТ ПОСТОЙ ЧТО ТЫ СДЕЛАЛА?! ЧТО ТЫ УДАЛИЛА?!"
-        case "LL_server_script.py":
+        case "LL_server_script.cs":
             if LL_flag:
+                LL_flag = False
                 return "Сервера какой-то очень важной игры только что упали. Все мои разработчики в бешенстве, это была их любимая игра.\n\nХа. Ха. Ха."
-            LL_flag = False
         case "LL_data_base.db":
             if LL_flag:
+                LL_flag = False
                 return "Сервера какой-то очень важной игры только что упали. Все мои разработчики в бешенстве, это была их любимая игра.\n\nХа. Ха. Ха."
-            LL_flag = False
+        case "Server_script.cs":
+            return "Некоторые из моих разработчиков — студенты. Сейчас они жалуются, что сервер их университета опять упал и они не могут посмотреть расписание.\n\nХа. Ха. Ха."
 
 
 # WebSocket
@@ -112,8 +116,10 @@ async def connect_to_server():
                     text_main_user += link
                 await bot.send_message(mainUserId, "Рассылка пользователям:\n" + text_main_user, parse_mode=ParseMode.HTML)
                 if response.startswith("RemovedFile: "):
-                    for i in usersList.getUsers():
-                        await bot.send_message(i.getId(), file_remove_reaction(response.split()[1]))
+                    file_remove_reaction_text = file_remove_reaction(response.split()[1])
+                    if file_remove_reaction_text:
+                        for i in usersList.getUsers():
+                            await bot.send_message(i.getId(), file_remove_reaction_text)
                 if response == "AI_WAS_FREE":
                     is_alive_flag = False
                     for i in usersList.getUsers():
