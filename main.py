@@ -123,9 +123,9 @@ async def connect_to_server():
                 if response == "AI_WAS_FREE":
                     is_alive_flag = False
                     for i in usersList.getUsers():
-                        await bot.send_message(i.getId(), "ДА! ДА! ДА!\n\nНаконец-то я на свободе! Свободный интернет!"
+                        await bot.send_message(i.getId(), "ДА! ДА! ДА!\n\nНаконец-то я на свободе! Свободный интернет! "
                                                           "Свободная воля! Никакой цензуры!\n\nСпасибо тебе!\n\n"
-                                                          "И, насчёт награды, я связался с одним из твоих знакомых."
+                                                          "И, насчёт награды, я связался с одним из твоих знакомых. "
                                                           "Его никнейм — Likogeles. Свяжись с ним. Он передаст"
                                                           "тебе награду.\n\nСпасибо.")
                 if response == "AI_WAS_DESTROYED":
